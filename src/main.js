@@ -8,9 +8,6 @@ const handelGetNumbers = (e) => {
 const handelGetOperators = (e) => {
     console.log('Я оператор', e.target.textContent);
 }
-const handelResult = (e) => {
-    console.log()
-}
 numbers.forEach(button => {
     button.addEventListener("click", handelGetNumbers);
 });
