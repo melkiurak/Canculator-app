@@ -18,6 +18,11 @@ const handleTest = (e) => {
         if(output.textContent === '0') return;
         firstNumber = output.textContent.slice(0, -1)
         output.textContent = firstNumber === '' ? '0' : firstNumber;
+    } else if (value === 'Ac') {
+        if(output.textContent === '0') return;
+        firstNumber = output.textContent = ''
+        output.textContent = firstNumber === '' ? '0' : firstNumber;
+        console.log('AC')
     }
 }
 allCalculatorButtons.forEach(button => {
