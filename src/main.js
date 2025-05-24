@@ -3,7 +3,7 @@ const output = document.querySelector('.display__output')
 
 let firstNumber = '';
 let secondNumber = '';    
-let operators = ['+', '-', '*', '/', '%']
+let operators = ['+', '-', 'x', '÷', '%']
 const handleTest = (e) => {
     const value = e.target.textContent;
     if(value === '.' && output.textContent.includes('.')) return;
@@ -11,11 +11,13 @@ const handleTest = (e) => {
         firstNumber += value
         output.textContent = firstNumber
         console.log(output.textContent)
-    }else if(operators.includes(value)) {
-        if(firstNumber === '') return
-        secondNumber = firstNumber
-        operators = value
-        firstNumber = ''
+    } else if(operators.includes(value)) {
+        output.textContent = value 
+        console.log(output.textContent)
+    }  else if (value === 'd') {
+        if(output.textContent === '0') return;
+        firstNumber = output.textContent.slice(0, -1)
+        output.textContent = firstNumber === '' ? '0' : firstNumber;
     }
 }
 allCalculatorButtons.forEach(button => {
