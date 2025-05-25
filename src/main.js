@@ -1,42 +1,55 @@
-const allCalculatorButtons = document.querySelectorAll('.buttons__numbers, .buttons__operators, .buttons__special');
-const output = document.querySelector('.display__output') 
+const numberButtons =  document.querySelectorAll('.buttons__numbers');
+const operatorsButtons = document.querySelectorAll('.buttons__operators');
+const specialButtons = document.querySelectorAll('.buttons__special');
+const resultButtons = document.querySelectorAll('.buttons__result');
+const output = document.querySelector('.display__output');
 
-let firstNumber = '';
-let secondNumber = '';    
-let currentOperator = '';
-let isSecond = false;
-let operators = ['+', '-', 'x', '÷', '%']
+let expression  = '';
+let operators = ['+', '-', '*', '/', '%']
 
-const handleTest = (e) => {
-    const value = e.target.textContent;
-    
-    if(value === '.' && output.textContent.includes('.')) return;
-    if(!isNaN(value) || value === '.' && output.textContent.includes('')){
-        if(!isSecond){
-            firstNumber += value
-            output.textContent = firstNumber
-        } else{
-            secondNumber += value
-            output.textContent = firstNumber + currentOperator + secondNumber 
-            console.log(output.textContent)
-        }
-    }  else if(operators.includes(value)) {
-        if(firstNumber === '') return;
-        currentOperator = value;
-        isSecond = true;
-        output.textContent = firstNumber + value 
-        console.log(output.textContent)
-    } else if (value === 'd') {
+const handleNumbers = (e) => {
+    if(e.target.textContent === '.' && output.textContent.includes('.')) return;
+    expression += e.target.textContent;
+    output.textContent = expression;
+};
+const handleOperators = (e) => {
+    let last = expression[expression.length - 1];
+    if(operators.includes(last)){
+        expression = expression.slice(0, -1) + e.target.textContent
+    } else if (expression !== '') {
+        expression += e.target.textContent
+    }
+    output.textContent = expression
+}
+const handleSpecial = (e) => {
+    if(e.target.textContent === 'd'){
         if(output.textContent === '0') return;
-        firstNumber = output.textContent.slice(0, -1)
-        output.textContent = firstNumber === '' ? '0' : firstNumber;
-    } else if (value === 'Ac') {
+        expression = output.textContent.slice(0, -1)
+        output.textContent = expression === '' ?  '0' : expression;
+    } else if (e.target.textContent === 'Ac') {
         if(output.textContent === '0') return;
-        firstNumber = output.textContent = ''
-        output.textContent = firstNumber === '' ? '0' : firstNumber;
+        expression = output.textContent = ''
+        output.textContent = expression === '' ? '0' : expression;
         console.log('AC')
     }
 }
-allCalculatorButtons.forEach(button => {
-    button.addEventListener("click", handleTest);
+const handleResult = () => {
+    if(expression === '') return;
+    let safeExpression = expression.replace(/x/g, '*');
+    safeExpression = safeExpression.replace(/(\d+(\.\d+)?)%/g, (_, num) => `${num}*0.01`);
+    const result = eval(safeExpression);
+    output.textContent = result.toString();
+    console.log('я равно', result);
+}
+numberButtons.forEach(button => {
+    button.addEventListener("click", handleNumbers);
+});
+operatorsButtons.forEach(button => {
+    button.addEventListener("click", handleOperators);
+});
+specialButtons.forEach(button => {
+    button.addEventListener("click", handleSpecial);
+});
+resultButtons.forEach(button => {
+    button.addEventListener("click", handleResult);
 });
