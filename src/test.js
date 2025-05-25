@@ -2,17 +2,20 @@ const numberButtons =  document.querySelectorAll('.buttons__numbers');
 const operatorsButtons = document.querySelectorAll('.buttons__operators');
 const output = document.querySelector('.display__output');
 
-let firstNumber = '';
-let secondNumber = '';
-let selectedOperators = '';
+let expression  = '';
+let operators = ['+', '-', '*', '/', '%']
 const handleNumbers = (e) => {
-    firstNumber += Number(e.target.textContent);
-    output.textContent = firstNumber
-    console.log(+firstNumber)
+    expression += e.target.textContent;
+    output.textContent = expression;
 };
 const handleOperators = (e) => {
-    selectedOperators = e.target.textContent;
-    output.textContent = selectedOperators
+    let last = expression[expression.length - 1];
+    if(operators.includes(last)){
+        expression = expression.slice(0, -1) + e.target.textContent
+    } else if (expression !== '') {
+        expression += e.target.textContent
+    }
+    output.textContent = expression
 }
 
 numberButtons.forEach(button => {
