@@ -1,12 +1,14 @@
 const numberButtons =  document.querySelectorAll('.buttons__numbers');
 const operatorsButtons = document.querySelectorAll('.buttons__operators');
 const specialButtons = document.querySelectorAll('.buttons__special');
+const resultButtons = document.querySelectorAll('.buttons__result');
 const output = document.querySelector('.display__output');
 
 let expression  = '';
 let operators = ['+', '-', '*', '/', '%']
 
 const handleNumbers = (e) => {
+    if(e.target.textContent === '.' && output.textContent.includes('.')) return;
     expression += e.target.textContent;
     output.textContent = expression;
 };
@@ -31,6 +33,12 @@ const handleSpecial = (e) => {
         console.log('AC')
     }
 }
+const handleResult = (e) => {
+    let safeExpression = expression.replace(/x/g, '*');
+    safeExpression = safeExpression.replace(/(\d+(\.\d+)?)%/g, (_, num) => `${num}*0.01`);
+    const result = eval(safeExpression);
+    console.log('я равно', result);
+}
 numberButtons.forEach(button => {
     button.addEventListener("click", handleNumbers);
 });
@@ -39,4 +47,7 @@ operatorsButtons.forEach(button => {
 });
 specialButtons.forEach(button => {
     button.addEventListener("click", handleSpecial);
+});
+resultButtons.forEach(button => {
+    button.addEventListener("click", handleResult);
 });
