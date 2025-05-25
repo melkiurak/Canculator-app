@@ -3,18 +3,30 @@ const output = document.querySelector('.display__output')
 
 let firstNumber = '';
 let secondNumber = '';    
+let currentOperator = '';
+let isSecond = false;
 let operators = ['+', '-', 'x', '÷', '%']
+
 const handleTest = (e) => {
     const value = e.target.textContent;
+    
     if(value === '.' && output.textContent.includes('.')) return;
     if(!isNaN(value) || value === '.' && output.textContent.includes('')){
-        firstNumber += value
-        output.textContent = firstNumber
+        if(!isSecond){
+            firstNumber += value
+            output.textContent = firstNumber
+        } else{
+            secondNumber += value
+            output.textContent = firstNumber + currentOperator + secondNumber 
+            console.log(output.textContent)
+        }
+    }  else if(operators.includes(value)) {
+        if(firstNumber === '') return;
+        currentOperator = value;
+        isSecond = true;
+        output.textContent = firstNumber + value 
         console.log(output.textContent)
-    } else if(operators.includes(value)) {
-        output.textContent = value 
-        console.log(output.textContent)
-    }  else if (value === 'd') {
+    } else if (value === 'd') {
         if(output.textContent === '0') return;
         firstNumber = output.textContent.slice(0, -1)
         output.textContent = firstNumber === '' ? '0' : firstNumber;
