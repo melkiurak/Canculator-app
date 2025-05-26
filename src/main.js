@@ -11,10 +11,15 @@ const handleNumbers = (e) => {
     const newNum = e.target.textContent
     const parts = expression.split(/[+\-*/%]/);
     let currentNumber = parts[parts.length - 1];
-    if(newNum === '.' && currentNumber.includes('.')){
-        return ;
+    if(currentNumber === '0' && newNum === '0') return;
+
+    if(currentNumber === '0' && newNum >= '1' && newNum <= '9') {
+        expression = expression.slice(0, -1) + newNum
+    } else if(newNum === '.' && currentNumber.includes('.')){
+        return
+    }  else {
+        expression += newNum
     }
-    expression += e.target.textContent;
     output.textContent = expression;
     console.log(expression)
 };
