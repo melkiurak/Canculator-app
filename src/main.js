@@ -6,13 +6,14 @@ const output = document.querySelector('.display__output');
 
 let expression  = '0';
 output.textContent = expression;
-let operators = ['+', '-', '*', '/', '%']
+let operators = ['+', '-', 'x', '÷', '%']
+
 const handleNumbers = (e) => {
     const newNum = e.target.textContent
     const parts = expression.split(/[+\-*/%]/);
     let currentNumber = parts[parts.length - 1];
     if(currentNumber === '0' && newNum === '0') return;
-
+    
     if(currentNumber === '0' && newNum >= '1' && newNum <= '9') {
         expression = expression.slice(0, -1) + newNum
     } else if(newNum === '.' && currentNumber.includes('.')){
@@ -46,7 +47,7 @@ const handleSpecial = (e) => {
 }
 const handleResult = () => {
     if(expression === '') return;
-    let safeExpression = expression.replace(/x/g, '*');
+    let safeExpression = expression.replace(/x/g, '*').replace(/÷/g, '/');
     safeExpression = safeExpression.replace(/(\d+(\.\d+)?)%/g, (_, num) => `${num}*0.01`);
     const result = eval(safeExpression);
     output.textContent = result.toString();
