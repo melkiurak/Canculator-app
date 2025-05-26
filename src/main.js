@@ -4,13 +4,19 @@ const specialButtons = document.querySelectorAll('.buttons__special');
 const resultButtons = document.querySelectorAll('.buttons__result');
 const output = document.querySelector('.display__output');
 
-let expression  = '';
+let expression  = '0';
+output.textContent = expression;
 let operators = ['+', '-', '*', '/', '%']
-
 const handleNumbers = (e) => {
-    if(e.target.textContent === '.' && output.textContent.includes('.')) return;
+    const newNum = e.target.textContent
+    const parts = expression.split(/[+\-*/%]/);
+    let currentNumber = parts[parts.length - 1];
+    if(newNum === '.' && currentNumber.includes('.')){
+        return ;
+    }
     expression += e.target.textContent;
     output.textContent = expression;
+    console.log(expression)
 };
 const handleOperators = (e) => {
     let last = expression[expression.length - 1];
