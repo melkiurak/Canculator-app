@@ -13,6 +13,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 .container {
+  position: relative;
   max-width: 308px;
   width: 100%;
   padding: 240px 34px 40px 34px;
@@ -52,6 +53,30 @@ body {
   background-color: #303136;
   color: #29a8ff;
 }
+.buttons__result {
+  background-color: #1991ff;
+  color: #b2daff;
+}
 .buttons__numbers-zero {
   grid-column: span 2;
+}
+.theme {
+  position: absolute;
+  top: 2rem;
+  right: 30px;
+  display: flex;
+  gap: 10px;
+  button {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+  }
+}
+.theme__dark {
+  background-color: #17181a;
+  color: white;
+}
+.theme__light {
+  background-color: #f7f8fb;
+  color: #17181a;
 }

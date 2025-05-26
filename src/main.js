@@ -3,6 +3,9 @@ const operatorsButtons = document.querySelectorAll('.buttons__operators');
 const specialButtons = document.querySelectorAll('.buttons__special');
 const resultButtons = document.querySelectorAll('.buttons__result');
 const output = document.querySelector('.display__output');
+const containerStyle = document.querySelector('.container');
+const ligth = document.querySelectorAll('.theme__light');
+const dark = document.querySelectorAll('.theme__dark');
 
 let expression  = '0';
 output.textContent = expression;
@@ -66,3 +69,95 @@ specialButtons.forEach(button => {
 resultButtons.forEach(button => {
     button.addEventListener("click", handleResult);
 });
+ligth.forEach(button => {
+    button.addEventListener("click", () => {
+        containerStyle.style.backgroundColor = '#F7F8FB';
+        output.style.color = '#424242'
+        specialButtons.forEach(specialBtn =>  {
+            specialBtn.style.backgroundColor = '#FFFFFF';
+            specialBtn.style.color = '#858585';
+        });
+        numberButtons.forEach(numberBtn =>  {
+            numberBtn.style.backgroundColor = '#FFFFFF';
+            numberBtn.style.color = '#38B9FF';
+        });
+        operatorsButtons.forEach(operatorsBtn =>  {
+            operatorsBtn.style.backgroundColor = '#ADE2FF';
+            operatorsBtn.style.color = '#109DFF';
+        });
+        resultButtons.forEach(resultBtn =>  {
+            resultBtn.style.backgroundColor = '#19ACFF';
+            resultBtn.style.color = '#B2DAFF';
+        });
+        localStorage.setItem('theme', 'light');
+    })
+});
+dark.forEach(button => {
+    button.addEventListener("click", () => {
+        containerStyle.style.backgroundColor = '#17181a';
+        output.style.color = '#FFFFFF'
+        specialButtons.forEach(specialBtn =>  {
+            specialBtn.style.backgroundColor = '#616161';
+            specialBtn.style.color = '#a5a5a5';
+        });
+        numberButtons.forEach(numberBtn =>  {
+            numberBtn.style.backgroundColor = '#303136';
+            numberBtn.style.color = '#29a8ff';
+        });
+        operatorsButtons.forEach(operatorsBtn =>  {
+            operatorsBtn.style.backgroundColor = '#005db2';
+            operatorsBtn.style.color = '#339dff';
+        });
+        resultButtons.forEach(resultBtn =>  {
+            resultBtn.style.backgroundColor = '#1991ff';
+            resultBtn.style.color = '#b2daff';
+        });
+        localStorage.setItem('theme', 'dark');
+
+    })
+})
+function applyTheme(theme) {
+    if(theme === 'light') {
+        containerStyle.style.backgroundColor = '#F7F8FB';
+        output.style.color = '#424242';
+        specialButtons.forEach(specialBtn =>  {
+            specialBtn.style.backgroundColor = '#FFFFFF';
+            specialBtn.style.color = '#858585';
+        });
+        numberButtons.forEach(numberBtn =>  {
+            numberBtn.style.backgroundColor = '#FFFFFF';
+            numberBtn.style.color = '#38B9FF';
+        });
+        operatorsButtons.forEach(operatorsBtn =>  {
+            operatorsBtn.style.backgroundColor = '#ADE2FF';
+            operatorsBtn.style.color = '#109DFF';
+        });
+        resultButtons.forEach(resultBtn =>  {
+            resultBtn.style.backgroundColor = '#19ACFF';
+            resultBtn.style.color = '#B2DAFF';
+        });
+    } else if (theme === 'dark') {
+        containerStyle.style.backgroundColor = '#17181a';
+        output.style.color = '#FFFFFF';
+        specialButtons.forEach(specialBtn =>  {
+            specialBtn.style.backgroundColor = '#616161';
+            specialBtn.style.color = '#a5a5a5';
+        });
+        numberButtons.forEach(numberBtn =>  {
+            numberBtn.style.backgroundColor = '#303136';
+            numberBtn.style.color = '#29a8ff';
+        });
+        operatorsButtons.forEach(operatorsBtn =>  {
+            operatorsBtn.style.backgroundColor = '#005db2';
+            operatorsBtn.style.color = '#339dff';
+        });
+        resultButtons.forEach(resultBtn =>  {
+            resultBtn.style.backgroundColor = '#1991ff';
+            resultBtn.style.color = '#b2daff';
+        });
+    }
+}
+const savedTheme = localStorage.getItem('theme');
+if(savedTheme) {
+    applyTheme(savedTheme);
+}
