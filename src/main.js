@@ -40,7 +40,7 @@ const handleSpecial = (e) => {
         output.textContent = expression === '' ?  '0' : expression;
     } else if (e.target.textContent === 'Ac') {
         if(output.textContent === '0') return;
-        expression = output.textContent = ''
+        expression = output.textContent = '0'
         output.textContent = expression === '' ? '0' : expression;
         console.log('AC')
     }
@@ -51,6 +51,7 @@ const handleResult = () => {
     safeExpression = safeExpression.replace(/(\d+(\.\d+)?)%/g, (_, num) => `${num}*0.01`);
     const result = eval(safeExpression);
     output.textContent = result.toString();
+    expression = result.toString();
     console.log('я равно', result);
 }
 numberButtons.forEach(button => {
